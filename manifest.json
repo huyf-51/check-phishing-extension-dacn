@@ -1,0 +1,15 @@
+{
+    "name": "Checking secure",
+    "version": "1.0.0",
+    "description": "This is an extension to check the website secure",
+    "manifest_version": 3,
+    "author": "Huy Nam",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Checking secure",
+        "default_icon": {
+            "16": "icon.png"
+        }
+    },
+    "permissions": ["tabs"]
+}
