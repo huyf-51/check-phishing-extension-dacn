@@ -1,9 +1,12 @@
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   const currentUrl = tabs[0].url; // Lấy URL của tab hiện tại
-  document.getElementById("currentUrl").textContent = currentUrl;
+  checkPhishing(currentUrl);
+});
 
+// Hàm gửi request đến API và nhận kết quả
+function checkPhishing(url) {
   const apiUrl = `https://phising-url-api-dacn.onrender.com/predict?url=${encodeURIComponent(
-    currentUrl
+    url
   )}`;
 
   fetch(apiUrl, {
@@ -14,16 +17,15 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   })
     .then((response) => response.text()) // Chuyển từ JSON sang text
     .then((data) => {
-      const resultDiv = document.getElementById("result");
+      chrome.action.setPopup({
+        popup: "popup.html",
+      });
 
-      // Xóa các class cũ trước khi thêm mới
-      resultDiv.classList.remove("safe", "phishing", "unknown");
-
-      // Lấy giá trị phần trăm và hiển thị
+      // Giả sử data trả về là một số float
       const chance = parseFloat(data); // Chuyển đổi sang kiểu float
-      resultDiv.textContent = `There is ${chance}% chance, the URL is malicious!`;
+      chrome.action.setBadgeText({ text: `${chance}%` });
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-});
+}

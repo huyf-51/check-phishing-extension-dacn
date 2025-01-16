@@ -5,7 +5,7 @@
     "manifest_version": 3,
     "author": "Huy Nam",
     "action": {
-        "default_popup": "index.html",
+        "default_popup": "popup.html",
         "default_title": "Checking secure",
         "default_icon": {
             "16": "icon.png"
